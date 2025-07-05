@@ -1,0 +1,104 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}Add Staff Member{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-primary text-white">
+      <h3 class="card-title mb-0">Add New Staff Member</h3>
+    </div>
+    
+    <form method="post" class="p-4">
+      {% csrf_token %}
+      
+      <!-- Username & Email Row -->
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <div class="form-floating mb-3">
+            {{ form.username }}
+            <label for="{{ form.username.id_for_label }}" class="text-muted">
+              <i class="fas fa-user me-2"></i>Username
+            </label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-floating">
+            {{ form.email }}
+            <label for="{{ form.email.id_for_label }}" class="text-muted">
+              <i class="fas fa-envelope me-2"></i>Email
+            </label>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Name Row -->
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <div class="form-floating">
+            {{ form.first_name }}
+            <label for="{{ form.first_name.id_for_label }}" class="text-muted">
+              <i class="fas fa-id-card me-2"></i>First Name
+            </label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-floating">
+            {{ form.last_name }}
+            <label for="{{ form.last_name.id_for_label }}" class="text-muted">
+              <i class="fas fa-id-card me-2"></i>Last Name
+            </label>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Password Section -->
+      <div class="mb-4 p-3 bg-light rounded">
+        <h6 class="mb-3 text-primary">
+          <i class="fas fa-lock me-2"></i>Password Settings
+        </h6>
+        
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-floating mb-3">
+              {{ form.password1 }}
+              <label for="{{ form.password1.id_for_label }}">Password</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating">
+              {{ form.password2 }}
+              <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="alert alert-info mt-2 p-2 small">
+          <ul class="mb-0 ps-3">
+            <li>At least 8 characters</li>
+            <li>Include numbers and letters</li>
+            <li>Avoid common passwords</li>
+          </ul>
+        </div>
+      </div>
+  
+      <!-- Department -->
+      <div class="mb-4">
+        <label class="form-label text-muted mb-2">
+          <i class="fas fa-building me-2"></i>Department
+        </label>
+        {{ form.department }}
+      </div>
+  
+      <!-- Submit -->
+      <div class="d-flex justify-content-between mt-4">
+        <button type="submit" class="btn btn-primary px-4 py-2">
+          <i class="fas fa-save me-2"></i>Create Account
+        </button>
+        <a href="{% url 'staff_list' %}" class="btn btn-outline-secondary">
+          Cancel
+        </a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

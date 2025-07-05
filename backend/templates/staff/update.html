@@ -1,0 +1,83 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}Update Staff Member{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-warning text-dark">
+      <h3 class="card-title mb-0">
+        <i class="fas fa-user-edit me-2"></i>Editing: {{ staff.username }}
+      </h3>
+    </div>
+    
+    <form method="post" class="p-4">
+      {% csrf_token %}
+      
+      <!-- Top Row -->
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <div class="form-floating mb-3">
+            {{ form.username }}
+            <label for="{{ form.username.id_for_label }}" class="text-muted">
+              Username
+            </label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-floating">
+            {{ form.email }}
+            <label for="{{ form.email.id_for_label }}" class="text-muted">
+              Email
+            </label>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Middle Row -->
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <div class="form-floating mb-3">
+            {{ form.first_name }}
+            <label>First Name</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-floating">
+            {{ form.last_name }}
+            <label>Last Name</label>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Department -->
+      <div class="mb-4">
+        <label class="form-label text-muted mb-2">
+          <i class="fas fa-building me-2"></i>Department
+        </label>
+        {{ form.department }}
+      </div>
+  
+      <!-- Active Toggle -->
+      <div class="form-check form-switch mb-4 ps-0">
+        <label class="form-check-label d-flex align-items-center">
+          {{ form.is_active }}
+          <span class="ms-3">
+            <i class="fas fa-power-off me-2"></i>Account Status
+          </span>
+        </label>
+        <small class="text-muted d-block mt-1">Toggle to activate/deactivate</small>
+      </div>
+  
+      <!-- Actions -->
+      <div class="d-flex justify-content-between border-top pt-4">
+        <button type="submit" class="btn btn-warning px-4 py-2">
+          <i class="fas fa-save me-2"></i>Save Changes
+        </button>
+        <a href="{% url 'staff_list' %}" class="btn btn-outline-danger">
+          <i class="fas fa-times me-2"></i>Discard
+        </a>
+      </div>
+    </form>
+  </div>
+{% endblock %}
