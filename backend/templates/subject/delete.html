@@ -1,0 +1,20 @@
+{% extends 'layouts/base.html' %}
+{% block title %}Delete Subject{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header bg-danger text-white">
+    <h3 class="card-title mb-0">Confirm Delete</h3>
+  </div>
+  <form method="post" class="p-4">
+    {% csrf_token %}
+    <p>Are you sure you want to delete the subject "<strong>{{ subject.subject_name }}</strong>"?</p>
+    <div class="mt-4 d-flex justify-content-between">
+      <button type="submit" class="btn btn-danger">
+        <i class="fas fa-trash me-2"></i>Yes, Delete
+      </button>
+      <a href="{% url 'subject_list' %}" class="btn btn-secondary">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

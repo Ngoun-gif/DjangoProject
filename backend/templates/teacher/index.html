@@ -1,0 +1,113 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}Teacher List{% endblock %}
+
+{% block content %}
+<section class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1>Teachers</h1>
+      </div>
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Home</a></li>
+          <li class="breadcrumb-item active">Teachers</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">All Teachers</h3>
+            <div class="card-tools">
+              <a href="{% url 'teacher_create' %}" class="btn btn-primary btn-sm">
+                <i class="fas fa-plus"></i> Add New Teacher
+              </a>
+            </div>
+          </div>
+
+          <div class="card-body table-responsive p-0">
+            <table class="table table-hover text-nowrap">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Full Name</th>
+                  <th>Gender</th>
+                  <th>Subject</th>
+                  <th>Photo</th>
+                  <th>Date of Birth</th>
+                  <th>Salary</th>
+                  <th>Created By</th>
+                  <th>Updated By</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for teacher in teachers %}
+                <tr>
+                  <td>{{ teacher.id }}</td>
+                  <td>{{ teacher.first_name }} {{ teacher.last_name }}</td>
+                  <td>
+                    {% if teacher.gender == 'M' %}
+                      <span class="badge bg-info">Male</span>
+                    {% elif teacher.gender == 'F' %}
+                      <span class="badge bg-danger">Female</span>
+                    {% else %}
+                      <span class="badge bg-secondary">Other</span>
+                    {% endif %}
+                  </td>
+                  <td>{{ teacher.subject.subject_name }}</td>
+                  <td>
+                    {% if teacher.photo %}
+                      <img src="{{ teacher.photo.url }}" alt="photo" class="img-thumbnail" style="width: 50px; height: 50px;">
+                    {% else %}
+                      <span class="text-muted">No photo</span>
+                    {% endif %}
+                  </td>
+                  <td>{{ teacher.date_of_birth|date:"Y-m-d" }}</td>
+                  <td>{{ teacher.salary }}</td>
+                  <td>{{ teacher.created_by.get_full_name|default:teacher.created_by.username }}</td>
+                  <td>{{ teacher.updated_by.get_full_name|default:teacher.updated_by.username }}</td>
+                  <td>
+                    <a href="{% url 'teacher_update' teacher.id %}" class="btn btn-warning btn-sm">
+                      <i class="fas fa-edit"></i> Edit
+                    </a>
+                    <a href="{% url 'teacher_delete' teacher.id %}" class="btn btn-danger btn-sm">
+                      <i class="fas fa-trash"></i> Delete
+                    </a>
+                  </td>
+                </tr>
+                {% empty %}
+                <tr>
+                  <td colspan="10" class="text-center">No teachers found</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+<style>
+  .badge {
+    font-size: 90%;
+  }
+  .img-thumbnail {
+    object-fit: cover;
+  }
+</style>
+{% endblock %}

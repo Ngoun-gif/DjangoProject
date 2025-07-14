@@ -22,3 +22,7 @@ urlpatterns = [
     # Include the backend URLs
     path('', include('backend.urls')),  # This will include the URLs from the backend app
 ]
+from django.conf import settings
+from django.conf.urls.static import static
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

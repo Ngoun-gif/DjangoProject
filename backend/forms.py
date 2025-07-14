@@ -65,3 +65,33 @@ class StaffUpdateForm(forms.ModelForm):
             profile.department = self.cleaned_data['department']
             profile.save()
         return user
+    
+
+from backend.models import Subject
+
+class SubjectCreationForm(forms.ModelForm):
+    class Meta:
+        model = Subject
+        fields = ['subject_name']
+        widgets = {
+            'subject_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter subject name'}),
+        }
+
+
+from backend.models import Teacher
+class TeacherForm(forms.ModelForm):
+    class Meta:
+        model = Teacher
+        fields = [
+            'first_name', 'last_name', 'gender', 'date_of_birth',
+            'salary', 'photo', 'subject'
+        ]
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'gender': forms.Select(attrs={'class': 'form-select'}),
+            'date_of_birth': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'salary': forms.NumberInput(attrs={'class': 'form-control'}),
+            'photo': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'subject': forms.Select(attrs={'class': 'form-select'}),
+        }

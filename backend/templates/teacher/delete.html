@@ -1,0 +1,32 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}Delete Teacher{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header bg-danger text-white">
+    <h3 class="card-title mb-0">Delete Teacher</h3>
+  </div>
+
+  <form method="post" class="p-4">
+    {% csrf_token %}
+    <p>Are you sure you want to delete the teacher <strong>"{{ teacher.full_name }}"</strong>?</p>
+
+    {% if teacher.photo %}
+      <div class="mb-3">
+        <img src="{{ teacher.photo.url }}" alt="Photo" class="img-thumbnail" style="width: 100px; height: 100px;">
+      </div>
+    {% endif %}
+
+    <div class="d-flex justify-content-between mt-4">
+      <button type="submit" class="btn btn-danger px-4">
+        <i class="fas fa-trash me-2"></i>Yes, Delete
+      </button>
+      <a href="{% url 'teacher_list' %}" class="btn btn-outline-secondary">
+        Cancel
+      </a>
+    </div>
+  </form>
+</div>
+{% endblock %}
